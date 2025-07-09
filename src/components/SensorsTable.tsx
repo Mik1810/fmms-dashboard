@@ -102,6 +102,8 @@ const SensorsTable: React.FC<SensorsTableProps> = ({ sensors }) => {
       headerName: 'Dist. (m)',
       width: 80,
       type: 'number',
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => (
         <Typography variant="body2">
           {params.row.distance || 'N/A'}
@@ -113,6 +115,8 @@ const SensorsTable: React.FC<SensorsTableProps> = ({ sensors }) => {
       headerName: 'Valore',
       flex: 0.6,
       minWidth: 100,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => (
         <Typography variant="body2" fontWeight="medium" noWrap>
           {params.row.currentValue || 'N/A'} {params.row.unitOfMeasure}
@@ -124,6 +128,8 @@ const SensorsTable: React.FC<SensorsTableProps> = ({ sensors }) => {
       headerName: 'Soglie',
       flex: 0.7,
       minWidth: 110,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => (
         <Typography variant="body2" color="text.secondary" fontSize="0.75rem">
           {params.row.minThreshold} - {params.row.maxThreshold} {params.row.unitOfMeasure}
@@ -134,6 +140,8 @@ const SensorsTable: React.FC<SensorsTableProps> = ({ sensors }) => {
       field: 'status',
       headerName: 'Stato',
       width: 100,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => (
         <Chip
           label={getStatusLabel(params.row.status || 'normal')}
@@ -147,6 +155,8 @@ const SensorsTable: React.FC<SensorsTableProps> = ({ sensors }) => {
       field: 'lastUpdate',
       headerName: 'Aggiorn.',
       width: 100,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => (
         <Typography variant="body2" color="text.secondary" fontSize="0.75rem">
           {formatDateTime(params.row.node.lastUpdate)}
@@ -162,23 +172,18 @@ const SensorsTable: React.FC<SensorsTableProps> = ({ sensors }) => {
 
   return (
     <Box sx={{ width: '100%', mb: 1 }}>
-      <Typography variant="h6" gutterBottom sx={{ color: '#1976d2', fontWeight: 'bold' }}>
-        Sensori Più Vicini (Top 10)
+      <Typography variant="h6" gutterBottom sx={{ color: 'primary.main', fontWeight: 'bold', px: 1, pt: 1 }}>
+        Sensori attorno a te
       </Typography>
       <Typography variant="body2" color="text.secondary" gutterBottom sx={{ mb: 1 }}>
         Visualizzazione dei 10 sensori più vicini con rilevazioni e soglie
       </Typography>
       
-      <Box sx={{ height: 600, width: '100%' }}>
-        <DataGrid
+      <Box sx={{ width: '100%' }}>          <DataGrid
             rows={closestSensors}
             columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[10]}
+            autoHeight
+            hideFooter
             disableRowSelectionOnClick
             sx={{
               width: '100%',
@@ -198,11 +203,41 @@ const SensorsTable: React.FC<SensorsTableProps> = ({ sensors }) => {
                 },
               },
               '& .MuiDataGrid-columnHeaders': {
-                backgroundColor: '#f1f5f9',
-                color: 'text.primary',
+                backgroundColor: '#121528 !important',
+                color: 'white !important',
                 borderBottom: '2px solid #e0e0e0',
                 fontSize: '0.875rem',
                 fontWeight: 'bold',
+                '& .MuiDataGrid-columnHeaderTitle': {
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  display: 'flex',
+                  width: '100%',
+                },
+              },
+              '& .MuiDataGrid-columnHeader': {
+                backgroundColor: '#121528 !important',
+                color: 'white !important',
+                justifyContent: 'center',
+                '&:hover': {
+                  backgroundColor: '#121528 !important',
+                },
+                '& .MuiDataGrid-iconButtonContainer': {
+                  color: 'white !important',
+                },
+                '& .MuiDataGrid-menuIcon': {
+                  color: 'white !important',
+                },
+                '& .MuiDataGrid-sortIcon': {
+                  color: 'white !important',
+                },
+              },
+              '& .MuiDataGrid-columnHeaderTitle': {
+                color: 'white !important',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                justifyContent: 'center',
+                flex: 1,
               },
               '& .MuiDataGrid-root': {
                 border: 'none',

@@ -8,14 +8,16 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Button
 } from '@mui/material';
 import {
   Email,
   Business,
   LocationOn,
   Schedule,
-  Badge
+  Badge,
+  Settings
 } from '@mui/icons-material';
 import type { User } from '../types';
 
@@ -100,7 +102,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ user }) => {
                   <LocationOn color="action" fontSize="small" />
                 </ListItemIcon>
                 <ListItemText 
-                  primary="Coordinate GPS"
+                  primary="Coordinate preferite"
                   secondary={`${user.preferredLatitude.toFixed(4)}, ${user.preferredLongitude.toFixed(4)}`}
                   primaryTypographyProps={{ fontSize: '0.875rem', fontWeight: 500 }}
                   secondaryTypographyProps={{ fontSize: '0.75rem' }}
@@ -133,6 +135,30 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ user }) => {
                 />
               </ListItem>
             </List>
+            
+            <Divider sx={{ my: 2 }} />
+            
+            {/* Pulsante Impostazioni */}
+            <Button
+              fullWidth
+              variant="outlined"
+              startIcon={<Settings />}
+              onClick={() => {
+                // TODO: Implementare apertura impostazioni
+                console.log('Apertura impostazioni personali...');
+              }}
+              sx={{
+                mt: 1,
+                borderColor: 'primary.main',
+                color: 'primary.main',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: 'white',
+                },
+              }}
+            >
+              Impostazioni
+            </Button>
       </Box>
     );
   };

@@ -2,19 +2,8 @@ import React from 'react';
 import {
   Typography,
   Chip,
-  Box,
-  IconButton,
-  Tooltip
+  Box
 } from '@mui/material';
-import {
-  Info,
-  Warning,
-  Error,
-  CheckCircle,
-  Circle,
-  Archive,
-  Visibility
-} from '@mui/icons-material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import type { Notification } from '../types';
 
@@ -23,59 +12,29 @@ interface NotificationsTableProps {
 }
 
 const NotificationsTable: React.FC<NotificationsTableProps> = ({ notifications }) => {
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case 'info':
-        return <Info color="info" />;
-      case 'warning':
-        return <Warning color="warning" />;
-      case 'error':
-        return <Error color="error" />;
-      case 'success':
-        return <CheckCircle color="success" />;
-      case 'maintenance':
-        return <Warning color="action" />;
-      default:
-        return <Info color="action" />;
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'read':
-        return <Visibility color="action" fontSize="small" />;
-      case 'unread':
-        return <Circle color="primary" fontSize="small" />;
-      case 'archived':
-        return <Archive color="action" fontSize="small" />;
-      default:
-        return <Circle color="action" fontSize="small" />;
-    }
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high':
+  const getDangerTypeColor = (dangerType: string) => {
+    switch (dangerType) {
+      case 'IMMINENT_DANGER':
         return 'error';
-      case 'medium':
+      case 'POTENTIAL_DANGER':
         return 'warning';
-      case 'low':
+      case 'LOW_RISK':
         return 'success';
       default:
         return 'default';
     }
   };
 
-  const getPriorityLabel = (priority: string) => {
-    switch (priority) {
-      case 'high':
-        return 'Alta';
-      case 'medium':
-        return 'Media';
-      case 'low':
-        return 'Bassa';
+  const getDangerTypeLabel = (dangerType: string) => {
+    switch (dangerType) {
+      case 'IMMINENT_DANGER':
+        return 'Pericolo Imminente';
+      case 'POTENTIAL_DANGER':
+        return 'Pericolo Potenziale';
+      case 'LOW_RISK':
+        return 'Basso Rischio';
       default:
-        return priority;
+        return dangerType;
     }
   };
 
@@ -92,56 +51,13 @@ const NotificationsTable: React.FC<NotificationsTableProps> = ({ notifications }
 
   const columns: GridColDef[] = [
     {
-      field: 'status',
-      headerName: '',
-      width: 40,
-      renderCell: (params) => (
-        <Tooltip title={`Stato: ${params.row.status === 'read' ? 'Letta' : params.row.status === 'unread' ? 'Non letta' : 'Archiviata'}`}>
-          <IconButton size="small">
-            {getStatusIcon(params.row.status)}
-          </IconButton>
-        </Tooltip>
-      ),
-    },
-    {
-      field: 'type',
-      headerName: '',
-      width: 50,
-      renderCell: (params) => (
-        <Tooltip title={`Tipo: ${params.row.type}`}>
-          <Box display="flex" alignItems="center">
-            {getTypeIcon(params.row.type)}
-          </Box>
-        </Tooltip>
-      ),
-    },
-    {
-      field: 'title',
-      headerName: 'Titolo',
-      flex: 1,
-      minWidth: 200,
-      renderCell: (params) => (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          <Typography variant="body2" fontWeight="medium" noWrap>
-            {params.row.title}
-          </Typography>
-          {params.row.sensorId && (
-            <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1, mt: 0.2 }}>
-              Sensore: {params.row.sensorId}
-            </Typography>
-          )}
-        </Box>
-      ),
-    },
-    {
       field: 'message',
       headerName: 'Messaggio',
-      flex: 1.5,
-      minWidth: 250,
+      flex: 2,
+      minWidth: 300,
       renderCell: (params) => (
         <Typography 
           variant="body2" 
-          color="text.secondary"
           sx={{ 
             overflow: 'hidden', 
             textOverflow: 'ellipsis',
@@ -155,25 +71,41 @@ const NotificationsTable: React.FC<NotificationsTableProps> = ({ notifications }
       ),
     },
     {
-      field: 'priority',
-      headerName: 'Priorità',
-      width: 90,
+      field: 'timestamp',
+      headerName: 'Data/Ora',
+      width: 150,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell: (params) => (
+        <Typography variant="body2" color="text.secondary" fontSize="0.875rem">
+          {formatDateTime(params.row.timestamp)}
+        </Typography>
+      ),
+    },
+    {
+      field: 'danger',
+      headerName: 'Tipo Pericolo',
+      width: 150,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => (
         <Chip
-          label={getPriorityLabel(params.row.priority)}
-          color={getPriorityColor(params.row.priority) as any}
+          label={getDangerTypeLabel(params.row.danger.dangerType)}
+          color={getDangerTypeColor(params.row.danger.dangerType) as any}
           size="small"
-          variant="outlined"
+          variant="filled"
         />
       ),
     },
     {
-      field: 'timestamp',
-      headerName: 'Data/Ora',
-      width: 120,
+      field: 'sensorCount',
+      headerName: 'Sensori',
+      width: 80,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => (
-        <Typography variant="body2" color="text.secondary" fontSize="0.75rem">
-          {formatDateTime(params.row.timestamp)}
+        <Typography variant="body2" fontSize="0.875rem">
+          {params.row.danger.sensorReadings.length}
         </Typography>
       ),
     },
@@ -186,23 +118,19 @@ const NotificationsTable: React.FC<NotificationsTableProps> = ({ notifications }
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography variant="h6" gutterBottom sx={{ color: '#1976d2', fontWeight: 'bold' }}>
-        Storico Notifiche
+      <Typography variant="h6" gutterBottom sx={{ color: 'primary.main', fontWeight: 'bold', px: 1, pt: 1 }}>
+        Notifiche di Pericolo
       </Typography>
-      <Typography variant="body2" color="text.secondary" gutterBottom sx={{ mb: 1 }}>
-        Elenco di tutte le notifiche ricevute e il loro stato
+      <Typography variant="body2" color="text.secondary" gutterBottom sx={{ px: 1, mb: 1 }}>
+        Elenco delle notifiche ricevute
       </Typography>
       
-      <Box sx={{ height: 600, width: '100%' }}>
+      <Box sx={{ width: '100%' }}>
         <DataGrid
             rows={sortedNotifications}
             columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[5, 10, 20]}
+            autoHeight
+            hideFooter
             disableRowSelectionOnClick
             sx={{
               width: '100%',
@@ -216,11 +144,41 @@ const NotificationsTable: React.FC<NotificationsTableProps> = ({ notifications }
                 alignItems: 'center',
               },
               '& .MuiDataGrid-columnHeaders': {
-                backgroundColor: '#f1f5f9',
-                color: 'text.primary',
+                backgroundColor: '#121528 !important',
+                color: 'white !important',
                 borderBottom: '2px solid #e0e0e0',
                 fontSize: '0.875rem',
                 fontWeight: 'bold',
+                '& .MuiDataGrid-columnHeaderTitle': {
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  display: 'flex',
+                  width: '100%',
+                },
+              },
+              '& .MuiDataGrid-columnHeader': {
+                backgroundColor: '#121528 !important',
+                color: 'white !important',
+                justifyContent: 'center',
+                '&:hover': {
+                  backgroundColor: '#121528 !important',
+                },
+                '& .MuiDataGrid-iconButtonContainer': {
+                  color: 'white !important',
+                },
+                '& .MuiDataGrid-menuIcon': {
+                  color: 'white !important',
+                },
+                '& .MuiDataGrid-sortIcon': {
+                  color: 'white !important',
+                },
+              },
+              '& .MuiDataGrid-columnHeaderTitle': {
+                color: 'white !important',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                justifyContent: 'center',
+                flex: 1,
               },
               '& .MuiDataGrid-row': {
                 backgroundColor: 'background.paper',

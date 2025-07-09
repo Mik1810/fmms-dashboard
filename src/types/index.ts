@@ -46,15 +46,38 @@ export interface Sensor {
   distance?: number;
 }
 
-export interface Notification {
-  id: string;
-  title: string;
-  message: string;
-  type: 'info' | 'warning' | 'error' | 'success' | 'maintenance';
+export interface SensorReading {
+  id: number;
   timestamp: string;
-  status: 'read' | 'unread' | 'archived';
-  sensorId?: number;
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  acknowledgedBy?: string;
-  acknowledgedAt?: string;
+  value: number;
+  sensorId: number;
+}
+
+export interface Danger {
+  id: number;
+  dangerType: 'IMMINENT_DANGER' | 'POTENTIAL_DANGER' | 'LOW_RISK';
+  timestamp: string;
+  centerLatitude: number;
+  centerLongitude: number;
+  radius: number;
+  sensorReadings: SensorReading[];
+}
+
+export interface NotificationUser {
+  id: number;
+  authId: string;
+  email: string;
+  roles: string[];
+  phone: string;
+  preferredLatitude: number;
+  preferredLongitude: number;
+}
+
+export interface Notification {
+  id: number;
+  message: string;
+  status: 'DELIVERED' | 'PENDING' | 'FAILED';
+  timestamp: string;
+  danger: Danger;
+  user: NotificationUser;
 }

@@ -232,105 +232,157 @@ export const sensorsData: Sensor[] = [
 
 export const notificationsData: Notification[] = [
   {
-    id: 'NOT001',
-    title: 'Velocità Vento Critica',
-    message: 'Il sensore di velocità vento (ID: 237) ha rilevato una velocità di 28.3 m/s, superando la soglia massima di 25.0 m/s.',
-    type: 'error',
-    timestamp: '2025-07-09T16:46:00Z',
-    status: 'unread',
-    sensorId: 237,
-    priority: 'critical'
+    id: 6760,
+    message: "Superamento soglia livello dell'acqua del fiume",
+    status: "DELIVERED",
+    timestamp: "2025-06-13T15:02:05Z",
+    danger: {
+      id: 435,
+      dangerType: "IMMINENT_DANGER",
+      timestamp: "2025-06-13T15:02:00Z",
+      centerLatitude: 45.6281501,
+      centerLongitude: 4.830731,
+      radius: 150.0,
+      sensorReadings: [
+        {
+          id: 456058,
+          timestamp: "2025-06-13T15:00:00Z",
+          value: 3.42,
+          sensorId: 4860
+        },
+        {
+          id: 6296,
+          timestamp: "2025-06-13T15:00:10Z",
+          value: 3.76,
+          sensorId: 673
+        }
+      ]
+    },
+    user: {
+      id: 493100,
+      authId: "6d6e6120-d45f-4334-b320-c57c401f66ae",
+      email: "michael.piccirilli@student.univaq.it",
+      roles: ["ADMIN", "USER"],
+      phone: "+39 3657151893",
+      preferredLatitude: 45.6281501,
+      preferredLongitude: 4.830731
+    }
   },
   {
-    id: 'NOT002',
-    title: 'Velocità Flusso Eccessiva',
-    message: 'Rilevata velocità di flusso anomala (9.2 m/s) nel canale di scarico. Soglia massima: 8.0 m/s.',
-    type: 'error',
-    timestamp: '2025-07-09T16:40:00Z',
-    status: 'unread',
-    sensorId: 241,
-    priority: 'critical'
+    id: 6761,
+    message: "Velocità del vento superiore alla soglia di sicurezza",
+    status: "DELIVERED",
+    timestamp: "2025-07-09T16:45:00Z",
+    danger: {
+      id: 436,
+      dangerType: "IMMINENT_DANGER",
+      timestamp: "2025-07-09T16:44:30Z",
+      centerLatitude: 45.6278234,
+      centerLongitude: 4.825671,
+      radius: 200.0,
+      sensorReadings: [
+        {
+          id: 456059,
+          timestamp: "2025-07-09T16:44:00Z",
+          value: 28.3,
+          sensorId: 237
+        }
+      ]
+    },
+    user: {
+      id: 493100,
+      authId: "6d6e6120-d45f-4334-b320-c57c401f66ae",
+      email: "michael.piccirilli@student.univaq.it",
+      roles: ["USER"],
+      phone: "+39 3657151893",
+      preferredLatitude: 45.6281501,
+      preferredLongitude: 4.830731
+    }
   },
   {
-    id: 'NOT003',
-    title: 'Velocità Flusso Elevata',
-    message: 'La velocità del flusso nel canale principale ha raggiunto 12.5 m/s, superando la soglia consigliata di 10.0 m/s.',
-    type: 'warning',
-    timestamp: '2025-07-09T16:43:00Z',
-    status: 'read',
-    sensorId: 235,
-    priority: 'medium',
-    acknowledgedBy: 'Mario Bianchi',
-    acknowledgedAt: '2025-07-09T16:45:00Z'
+    id: 6762,
+    message: "Flusso d'acqua nel canale principale oltre i limiti",
+    status: "DELIVERED",
+    timestamp: "2025-07-09T16:43:15Z",
+    danger: {
+      id: 437,
+      dangerType: "POTENTIAL_DANGER",
+      timestamp: "2025-07-09T16:43:00Z",
+      centerLatitude: 45.6295123,
+      centerLongitude: 4.832456,
+      radius: 100.0,
+      sensorReadings: [
+        {
+          id: 456060,
+          timestamp: "2025-07-09T16:43:00Z",
+          value: 12.5,
+          sensorId: 235
+        }
+      ]
+    },
+    user: {
+      id: 493100,
+      authId: "6d6e6120-d45f-4334-b320-c57c401f66ae",
+      email: "michael.piccirilli@student.univaq.it",
+      roles: ["USER"],
+      phone: "+39 3657151893",
+      preferredLatitude: 45.6281501,
+      preferredLongitude: 4.830731
+    }
   },
   {
-    id: 'NOT004',
-    title: 'Umidità Suolo Elevata',
-    message: 'L\'umidità del suolo nel campo sud ha raggiunto 85.4%, superando la soglia massima del 70%.',
-    type: 'warning',
-    timestamp: '2025-07-09T16:41:00Z',
-    status: 'read',
-    sensorId: 240,
-    priority: 'medium',
-    acknowledgedBy: 'Anna Verdi',
-    acknowledgedAt: '2025-07-09T16:42:00Z'
+    id: 6763,
+    message: "Sensore pluviometrico offline",
+    status: "PENDING",
+    timestamp: "2025-07-09T15:38:00Z",
+    danger: {
+      id: 438,
+      dangerType: "LOW_RISK",
+      timestamp: "2025-07-09T15:38:00Z",
+      centerLatitude: 45.6298765,
+      centerLongitude: 4.826543,
+      radius: 50.0,
+      sensorReadings: []
+    },
+    user: {
+      id: 493100,
+      authId: "6d6e6120-d45f-4334-b320-c57c401f66ae",
+      email: "michael.piccirilli@student.univaq.it",
+      roles: ["USER"],
+      phone: "+39 3657151893",
+      preferredLatitude: 45.6281501,
+      preferredLongitude: 4.830731
+    }
   },
   {
-    id: 'NOT005',
-    title: 'Sensore Offline',
-    message: 'Il pluviometro della stazione remota (ID: 243) è offline dal 2025-07-09T15:38:00Z.',
-    type: 'error',
-    timestamp: '2025-07-09T16:39:00Z',
-    status: 'read',
-    sensorId: 243,
-    priority: 'high'
-  },
-  {
-    id: 'NOT006',
-    title: 'Sistema di Monitoraggio Online',
-    message: 'Tutti i sistemi di monitoraggio idrologico sono operativi e funzionanti correttamente.',
-    type: 'success',
-    timestamp: '2025-07-09T16:00:00Z',
-    status: 'read',
-    priority: 'low'
-  },
-  {
-    id: 'NOT007',
-    title: 'Manutenzione Sensore Completata',
-    message: 'Manutenzione programmata del sensore di livello acqua completata con successo.',
-    type: 'maintenance',
-    timestamp: '2025-07-09T14:30:00Z',
-    status: 'archived',
-    priority: 'low',
-    acknowledgedBy: 'Tecnico Specializzato',
-    acknowledgedAt: '2025-07-09T14:35:00Z'
-  },
-  {
-    id: 'NOT008',
-    title: 'Aggiornamento Firmware Sensori',
-    message: 'È disponibile un aggiornamento firmware per 3 sensori della rete idrologica. Programmazione manutenzione consigliata.',
-    type: 'info',
-    timestamp: '2025-07-09T12:15:00Z',
-    status: 'read',
-    priority: 'medium'
-  },
-  {
-    id: 'NOT009',
-    title: 'Supernode Attivo',
-    message: 'Il nodo principale della rete (ID: 1549) sta funzionando correttamente come supernode.',
-    type: 'info',
-    timestamp: '2025-07-09T10:30:00Z',
-    status: 'unread',
-    sensorId: 237,
-    priority: 'low'
-  },
-  {
-    id: 'NOT010',
-    title: 'Calibrazione Periodica Richiesta',
-    message: 'I sensori di umidità del suolo necessitano di calibrazione periodica entro il prossimo mese.',
-    type: 'maintenance',
-    timestamp: '2025-07-09T08:15:00Z',
-    status: 'read',
-    priority: 'medium'
+    id: 6764,
+    message: "Umidità del suolo oltre la soglia massima consentita",
+    status: "DELIVERED",
+    timestamp: "2025-07-09T16:41:00Z",
+    danger: {
+      id: 439,
+      dangerType: "POTENTIAL_DANGER",
+      timestamp: "2025-07-09T16:40:45Z",
+      centerLatitude: 45.6267890,
+      centerLongitude: 4.831245,
+      radius: 120.0,
+      sensorReadings: [
+        {
+          id: 456061,
+          timestamp: "2025-07-09T16:40:00Z",
+          value: 85.4,
+          sensorId: 240
+        }
+      ]
+    },
+    user: {
+      id: 493100,
+      authId: "6d6e6120-d45f-4334-b320-c57c401f66ae",
+      email: "michael.piccirilli@student.univaq.it",
+      roles: ["USER"],
+      phone: "+39 3657151893",
+      preferredLatitude: 45.6281501,
+      preferredLongitude: 4.830731
+    }
   }
 ];

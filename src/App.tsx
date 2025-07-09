@@ -41,7 +41,7 @@ const theme = createTheme({
     divider: 'rgba(0, 0, 0, 0.08)',
   },
   typography: {
-    fontFamily: '"Inter", "Segoe UI", "Roboto", sans-serif',
+    fontFamily: '"Inter", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
     h6: {
       fontWeight: 600,
       fontSize: '1.125rem',
@@ -133,10 +133,10 @@ function App() {
               alignItems: 'center',
               gap: 0.5
             }}
-            title="Apri Mappa"
+            title="Mappa"
           >
             <MapIcon />
-            <Typography variant="body2">Map</Typography>
+            <Typography variant="body2">Mappa</Typography>
           </IconButton>
           <IconButton
             color="inherit"
@@ -171,7 +171,14 @@ function App() {
           <SensorsTable sensors={sensorsData} />
           
           {/* Separatore */}
-          <Box sx={{ height: '2px', backgroundColor: 'divider', my: 3, mx: 2 }} />
+          <Box sx={{ 
+            height: '4px', 
+            backgroundColor: 'primary.main', 
+            my: 3, 
+            mx: 2,
+            borderRadius: 2,
+            opacity: 1
+          }} />
           
           <NotificationsTable notifications={notificationsData} />
         </Box>
