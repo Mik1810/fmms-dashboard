@@ -121,12 +121,12 @@ const NotificationsTable: React.FC<NotificationsTableProps> = ({ notifications }
       flex: 1,
       minWidth: 200,
       renderCell: (params) => (
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           <Typography variant="body2" fontWeight="medium" noWrap>
             {params.row.title}
           </Typography>
           {params.row.sensorId && (
-            <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2 }}>
+            <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1, mt: 0.2 }}>
               Sensore: {params.row.sensorId}
             </Typography>
           )}

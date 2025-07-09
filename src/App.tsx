@@ -127,10 +127,16 @@ function App() {
           <IconButton
             color="inherit"
             onClick={handleMapOpen}
-            sx={{ mr: 1 }}
+            sx={{ 
+              mr: 1,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5
+            }}
             title="Apri Mappa"
           >
             <MapIcon />
+            <Typography variant="body2">Map</Typography>
           </IconButton>
           <IconButton
             color="inherit"
